@@ -1,0 +1,30 @@
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+
+const { checkAuth, restrictTo } = require("./middlewares/auth");
+
+const urlRouter = require("./routes/url");
+const staticRouter = require("./routes/staticRoutes");
+const userRouter = require("./routes/user");
+const { connectMongoDB } = require("./connection");
+
+const app = express();
+const PORT = 8001;
+
+connectMongoDB("mongodb://127.0.0.1:27017/url-shortner");
+
+app.set("view engine", "ejs");
+app.set("views", path.resolve("./views"));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+app.use(checkAuth);
+
+app.use("/url", restrictTo(["USER", "ADMIN"]), urlRouter);
+app.use("/user", userRouter);
+app.use("/", staticRouter);
+
+app.listen(PORT, () => console.log("Server started at port", PORT));

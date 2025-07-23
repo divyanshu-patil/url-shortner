@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Url shortner</h1>
+
+    <% if (locals.id) { %>
+    <p>url generated <a href="<%= locals.id %>"><%= locals.id %></a></p>
+    <% } %>
+    <form action="/url" method="post">
+      <label for="url">Enter your url:</label>
+      <input type="text" id="url" name="url" required />
+      <input type="submit" />
+    </form>
+    <% if (locals.urls) { %> <% urls.forEach(url => { %>
+    <li>
+      <a href="http://localhost:8001/url/<%= url.shortId %>"
+        ><%= url.shortId %></a
+      >
+      - <%= url.visitHistory.length %>
+    </li>
+    <% }) %> <% } %>
+  </body>
+</html>
