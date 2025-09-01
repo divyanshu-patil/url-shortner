@@ -54,3 +54,21 @@ url-shortener/
 - _POST_ `/url/` - Create shortid
 - _GET_ `/:shortId` - redirects to the original url
 - _GET_ `/analytics/:shortId` - get click count of url
+
+## Run Project
+- clone repo
+```bash
+git clone https://github.com/divyanshu-patil/url-shortner.git
+```
+- navigate to project
+```bash
+cd url-shortner
+```
+- install dependencies
+```bash
+npm i
+```
+- start server
+```bash
+npm start
+```
